@@ -8,7 +8,7 @@
 
 <meta name="author" content="Zheyre Tolliver">
 
-<title>Crypto Markets</title>
+<title>The Crypto Market, 2018 to 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -40,20 +40,32 @@ ul.task-list li input[type="checkbox"] {
 <link href="analysis_files/libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="analysis_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="analysis_files/libs/bootstrap/bootstrap-5dce3422ae1aaea6fd35e22067a0726d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="analysis_files/libs/bootstrap/bootstrap-5bf103b668a3727b4c41d7a443854fdd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#two-boom-and-bust-cycles" id="toc-two-boom-and-bust-cycles" class="nav-link active" data-scroll-target="#two-boom-and-bust-cycles">Two boom and bust cycles</a></li>
+  <li><a href="#bitcoins-price-tells-the-same-story" id="toc-bitcoins-price-tells-the-same-story" class="nav-link" data-scroll-target="#bitcoins-price-tells-the-same-story">Bitcoin’s price tells the same story</a></li>
+  <li><a href="#who-holds-the-markets-value" id="toc-who-holds-the-markets-value" class="nav-link" data-scroll-target="#who-holds-the-markets-value">Who holds the market’s value?</a></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Crypto Markets</h1>
+<h1 class="title">The Crypto Market, 2018 to 2026</h1>
+<p class="subtitle lead">Booms, busts, and who holds the market’s value</p>
 </div>
 
 
@@ -67,6 +79,12 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -76,15 +94,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Cryptocurrency is famous for its wild swings, but how big are those swings, and who actually holds the market’s value? Using 59,436 daily observations of 22 major coins, I traced the market’s growth and its changing makeup from 2018 to 2026.</p>
+<div class="keyfindings">
+<p><strong>Key findings</strong></p>
+<ul>
+<li>The market went through two full boom and bust cycles, and the second peak was far larger than the first.</li>
+<li>Bitcoin’s share of the market grew after the 2022 crashes, from about 42% to 66%.</li>
+<li>Stablecoins, coins pegged to the US dollar, went from almost nothing to a meaningful slice of the market.</li>
+</ul>
+</div>
+<section id="two-boom-and-bust-cycles" class="level2">
+<h2 class="anchored" data-anchor-id="two-boom-and-bust-cycles">Two boom and bust cycles</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>The market climbed to about $2.5 trillion in late 2021, collapsed during the 2022 “crypto winter,” and then rose to nearly $4 trillion in 2025.</p>
+</section>
+<section id="bitcoins-price-tells-the-same-story" class="level2">
+<h2 class="anchored" data-anchor-id="bitcoins-price-tells-the-same-story">Bitcoin’s price tells the same story</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -94,6 +127,23 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+</section>
+<section id="who-holds-the-markets-value" class="level2">
+<h2 class="anchored" data-anchor-id="who-holds-the-markets-value">Who holds the market’s value?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>After two major shocks in 2022, the Luna/UST crash and the FTX collapse, investors moved toward Bitcoin, the oldest and largest coin.</p>
+<div class="methods">
+<p><strong>About the data:</strong> Daily prices and market caps for 22 coins come from Coin Metrics Community Data. Because the data covers 22 major coins rather than every cryptocurrency, category shares are approximations. Analysis done in R with the tidyverse and arrow packages.</p>
+</div>
+</section>
 
 </main>
 <!-- /main column -->

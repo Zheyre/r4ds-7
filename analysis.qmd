@@ -1,9 +1,19 @@
 ---
-title: "Crypto Markets"
+title: "The Crypto Market, 2018 to 2026"
+subtitle: "Booms, busts, and who holds the market's value"
 author: "Zheyre Tolliver"
-format: html
+date: today
+date-format: "MMMM YYYY"
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-title: "On this page"
+    fig-align: center
 execute:
   echo: false
+  warning: false
 ---
 
 ```{r}
@@ -24,58 +34,99 @@ crypto <- prices |>
               rename(category_description = description),
             by = "category_id") |>
   mutate(date = as.Date(date_raw))
-
 ```
 
+Cryptocurrency is famous for its wild swings, but how big are those swings, and who actually holds the market's value? Using `r format(nrow(crypto), big.mark = ",")` daily observations of 22 major coins, I traced the market's growth and its changing makeup from 2018 to 2026.
+
+::: {.keyfindings}
+**Key findings**
+
+- The market went through two full boom and bust cycles, and the second peak was far larger than the first.
+- Bitcoin's share of the market grew after the 2022 crashes, from about 42% to 66%.
+- Stablecoins, coins pegged to the US dollar, went from almost nothing to a meaningful slice of the market.
+:::
+
+## Two boom and bust cycles
+
 ```{r}
+#| fig-width: 10
+#| fig-height: 5.5
 crypto |>
   summarize(total_cap = sum(market_cap_usd, na.rm = TRUE), .by = date) |>
   ggplot(aes(x = date, y = total_cap / 1e12)) +
-  geom_line(color = "#7b2cbf", linewidth = 0.6) +
+  geom_area(fill = "#e9ddf7", alpha = 0.7) +
+  geom_line(color = "#6a3fa0", linewidth = 0.7) +
   scale_y_continuous(labels = scales::label_dollar(suffix = "T")) +
   labs(
-    title = "Total Crypto Market Cap, 2018 to 2026",
-    subtitle = "Sum of 22 coins' daily market caps",
-    x = NULL,
-    y = "Market cap (trillions of USD)",
+    title = "Total Crypto Market Cap",
+    subtitle = "Combined market value of 22 major coins, in trillions of US dollars",
+    x = NULL, y = NULL,
     caption = "Source: Coin Metrics Community Data"
   ) +
-  theme_minimal(base_size = 13) +
-  theme(plot.title = element_text(face = "bold"))
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(face = "bold"),
+        panel.grid.minor = element_blank())
 ```
+
+The market climbed to about $2.5 trillion in late 2021, collapsed during the 2022 "crypto winter," and then rose to nearly $4 trillion in 2025.
+
+## Bitcoin's price tells the same story
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5.5
+crypto |>
+  filter(coin_id == "btc") |>
+  ggplot(aes(x = date, y = price_usd)) +
+  geom_line(color = "#6a3fa0", linewidth = 0.6) +
+  scale_y_continuous(labels = scales::label_dollar()) +
+  labs(
+    title = "Bitcoin's Daily Price",
+    subtitle = "US dollars per bitcoin",
+    x = NULL, y = NULL,
+    caption = "Source: Coin Metrics Community Data"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(face = "bold"),
+        panel.grid.minor = element_blank())
+```
+
+## Who holds the market's value?
 
 ```{r}
 #| fig-width: 10
 #| fig-height: 6
-share_data <- crypto |>
+crypto |>
   summarize(cat_mcap = sum(market_cap_usd, na.rm = TRUE),
             .by = c(date, category_name)) |>
   mutate(category_name = fct_reorder(category_name, cat_mcap,
-                                     .fun = median, .desc = TRUE))
-
-share_data |>
+                                     .fun = median, .desc = TRUE)) |>
   ggplot(aes(x = date, y = cat_mcap, fill = category_name)) +
   geom_area(position = "fill") +
   annotate("rect",
            xmin = as.Date(c("2022-05-07", "2022-11-08")),
            xmax = as.Date(c("2022-05-12", "2022-11-11")),
-           ymin = 0, ymax = 1,
-           fill = "black", alpha = 0.35) +
+           ymin = 0, ymax = 1, fill = "black", alpha = 0.35) +
   annotate("label",
            x = as.Date(c("2022-05-09", "2022-11-09")),
            y = c(0.95, 0.85),
-           label = c("Luna/UST crash", "FTX collapse"),
-           size = 3.5) +
+           label = c("Luna/UST crash", "FTX collapse"), size = 3.5) +
   scale_y_continuous(labels = scales::label_percent()) +
   scale_fill_viridis_d(option = "plasma", end = 0.95) +
   labs(
-    title = "Bitcoin's Share of the Crypto Market Grew After 2022",
-    subtitle = "Share of total market cap held by each category, 22 major coins, 2018 to 2026",
-    x = NULL,
-    y = "Share of total market cap",
-    fill = "Category",
+    title = "Bitcoin's Share of the Market Grew After 2022",
+    subtitle = "Share of total market cap held by each category of coin",
+    x = NULL, y = NULL, fill = NULL,
     caption = "Source: Coin Metrics Community Data"
   ) +
-  theme_minimal(base_size = 13) +
-  theme(plot.title = element_text(face = "bold"))
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(face = "bold"),
+        legend.position = "bottom")
 ```
+
+After two major shocks in 2022, the Luna/UST crash and the FTX collapse, investors moved toward Bitcoin, the oldest and largest coin.
+
+::: {.methods}
+**About the data:** Daily prices and market caps for 22 coins come from Coin Metrics Community Data. Because the data covers 22 major coins rather than every cryptocurrency, category shares are approximations. Analysis done in R with the tidyverse and arrow packages.
+:::
+
