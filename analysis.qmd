@@ -1,0 +1,17 @@
+cat > analysis.qmd << 'EOF'
+---
+title: "Crypto Markets"
+author: "Zheyre Tolliver"
+format: html
+execute:
+  echo: false
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(arrow)
+```
+EOF
+printf "analysis_files\n\n" > .gitignore
+
